@@ -24,21 +24,15 @@
         <button id="noBtn">No</button>
     </div>
 
-    <div id="videoContainer" style="display:none;">
-        <!-- Vídeo de YouTube -->
-        <iframe
-            id="ytPlayer"
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/cahV83nd7_I?autoplay=1"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-        </iframe>
+    <div id="videoContainer">
+        <div class="video-frame">
+            <div id="player"></div>
+        </div>
     </div>
 </div>
 
+<!-- YouTube IFrame API -->
+<script src="https://www.youtube.com/iframe_api"></script>
 <script src="script.js"></script>
 </body>
 </html>
