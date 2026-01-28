@@ -7,18 +7,26 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <div class="hearts"></div>
+
     <div class="container">
-        <img src="https://images.pexels.com/photos/1157395/pexels-photo-1157395.jpeg" alt="San Valentín" class="hero">
+        <img src="valentin.png" alt="San Valentín" class="hero">
+
         <h1>¿Quieres ser mi San Valentín?</h1>
+
         <div id="buttons">
             <button id="yesBtn">Sí 💖</button>
-            <button id="noBtn">No 😢</button>
+            <button id="noBtn">No</button>
         </div>
-        <div id="countdown" style="display:none;">
+
+        <div id="countdown">
             <h2>Cuenta atrás hasta el 14 de febrero:</h2>
             <div id="timer"></div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
