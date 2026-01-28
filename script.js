@@ -9,7 +9,7 @@ yesBtn.addEventListener("click", () => {
     videoContainer.style.display = "flex";
 });
 
-/* BOTÓN NO — HUYE */
+/* BOTÓN NO — HUYE SIN TAPAR EL SÍ */
 let noSpeed = 1;
 let noActivated = false;
 
@@ -22,12 +22,31 @@ function moveNo() {
         noActivated = true;
     }
 
-    const x = Math.random() * (window.innerWidth - noBtn.clientWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.clientHeight);
+    const yesRect = yesBtn.getBoundingClientRect();
+    const padding = 80; // distancia mínima respecto al botón SÍ
+
+    let x, y;
+    let safe = false;
+
+    while (!safe) {
+        x = Math.random() * (window.innerWidth - noBtn.clientWidth);
+        y = Math.random() * (window.innerHeight - noBtn.clientHeight);
+
+        const overlapsYes =
+            x < yesRect.right + padding &&
+            x + noBtn.clientWidth > yesRect.left - padding &&
+            y < yesRect.bottom + padding &&
+            y + noBtn.clientHeight > yesRect.top - padding;
+
+        if (!overlapsYes) safe = true;
+    }
 
     noBtn.style.position = "absolute";
     noBtn.style.left = `${x}px`;
     noBtn.style.top = `${y}px`;
+
+    noBtn.style.zIndex = "2";
+    yesBtn.style.zIndex = "5";
 
     noSpeed += 0.7;
     noBtn.style.transition = `${0.2 / noSpeed}s`;
