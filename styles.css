@@ -7,66 +7,109 @@ html, body {
     padding: 0;
     width: 100%;
     height: 100%;
-    font-family: Arial, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
     background: linear-gradient(135deg, #ffd6e0, #ffe6e6);
     overflow: hidden;
 }
 
+/* CONTENEDOR PRINCIPAL */
 .container {
     position: relative;
     z-index: 2;
+    min-height: 100vh;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 20px;
 }
 
+/* IMAGEN */
 .hero {
-    width: 280px;
-    max-width: 90%;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 240px;
+    max-width: 80vw;
+    border-radius: 22px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
     margin-bottom: 20px;
-    animation: fadeInUp 1.5s ease;
+    animation: fadeInUp 1.4s ease;
 }
 
+/* TEXTO */
 h1 {
     color: #b30000;
-    margin-bottom: 25px;
+    font-size: 1.6rem;
+    margin: 10px 0 25px;
+    line-height: 1.25;
+}
+
+/* BOTONES */
+#buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 280px;
 }
 
 button {
-    padding: 15px 35px;
-    margin: 15px;
-    font-size: 20px;
-    border-radius: 14px;
-    cursor: pointer;
+    width: 100%;
+    padding: 16px 0;
+    font-size: 1.2rem;
+    border-radius: 16px;
     border: none;
+    cursor: pointer;
 }
 
-/* Botón Sí palpitando */
+/* BOTÓN SÍ */
 #yesBtn {
     background: #ff4d4d;
     color: white;
-    animation: pulse 1.4s infinite;
+    animation: pulse 1.3s infinite;
 }
 
+/* BOTÓN NO */
 #noBtn {
     background: #cccccc;
     color: #333;
     position: relative;
 }
 
+/* CUENTA ATRÁS */
 #countdown {
     display: none;
     margin-top: 30px;
 }
 
 #timer {
-    font-size: 2rem;
-    color: #b30000;
+    font-size: 1.8rem;
     font-weight: bold;
+    color: #b30000;
 }
 
-/* Animaciones */
+/* DESKTOP */
+@media (min-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .hero {
+        width: 300px;
+    }
+
+    #buttons {
+        flex-direction: row;
+        max-width: none;
+        justify-content: center;
+    }
+
+    button {
+        width: auto;
+        padding: 16px 36px;
+    }
+}
+
+/* ANIMACIONES */
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.08); }
@@ -76,7 +119,7 @@ button {
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(25px);
     }
     to {
         opacity: 1;
@@ -84,25 +127,18 @@ button {
     }
 }
 
-/* Corazones */
-.hearts::before,
-.hearts::after {
-    content: "💖 💕 💘 💗 💓";
+/* ❤️ CORAZONES CORREGIDOS (TODO EL ANCHO, MÁS VIDA) */
+.hearts span {
     position: fixed;
     top: -10%;
-    left: 0;
-    width: 100%;
-    font-size: 2rem;
-    animation: hearts 15s linear infinite;
-    opacity: 0.35;
+    font-size: 1.6rem;
+    opacity: 0.5;
+    animation: fall linear infinite;
+    pointer-events: none;
     z-index: 1;
 }
 
-.hearts::after {
-    animation-delay: 7s;
-}
-
-@keyframes hearts {
+@keyframes fall {
     to {
         transform: translateY(120vh);
     }
