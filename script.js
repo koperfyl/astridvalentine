@@ -3,13 +3,13 @@ const noBtn = document.getElementById("noBtn");
 const buttonsDiv = document.getElementById("buttons");
 const videoContainer = document.getElementById("videoContainer");
 
-/* BOTÓN SÍ — MUESTRA EL VIDEO */
+/* BOTÓN SÍ — MUESTRA VIDEO */
 yesBtn.addEventListener("click", () => {
     buttonsDiv.style.display = "none";
-    videoContainer.style.display = "block";
+    videoContainer.style.display = "flex";
 });
 
-/* BOTÓN NO — CAMBIA TEXTO Y HUE */
+/* BOTÓN NO — HUYE */
 let noSpeed = 1;
 let noActivated = false;
 
@@ -33,19 +33,18 @@ function moveNo() {
     noBtn.style.transition = `${0.2 / noSpeed}s`;
 }
 
-/* 👇 CORAZONES ANIMADOS */
+/* CORAZONES */
 const heartsContainer = document.querySelector(".hearts");
-const heartEmojis = ["💖","💕","💘","💗","💓"];
+const heartEmojis = ["💖", "💕", "💘", "💗", "💓"];
 
 function createHeart() {
     const heart = document.createElement("span");
     heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-    heart.style.left = (Math.random() * 100) + "vw";
-    heart.style.animationDuration = (6 + Math.random() * 8) + "s";
-    heart.style.fontSize = (1.2 + Math.random() * 1.5) + "rem";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = 6 + Math.random() * 8 + "s";
+    heart.style.fontSize = 1.2 + Math.random() * 1.5 + "rem";
 
     heartsContainer.appendChild(heart);
-
     setTimeout(() => heart.remove(), 18000);
 }
 
