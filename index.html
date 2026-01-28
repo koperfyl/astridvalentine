@@ -24,13 +24,21 @@
         <button id="noBtn">No</button>
     </div>
 
-    <div id="countdown">
-        <h2>Cuenta atrás hasta el 14 de febrero:</h2>
-        <div id="timer"></div>
+    <div id="videoContainer" style="display:none;">
+        <!-- Vídeo de YouTube -->
+        <iframe
+            id="ytPlayer"
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/cahV83nd7_I?autoplay=1"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+        </iframe>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

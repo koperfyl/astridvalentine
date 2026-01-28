@@ -1,47 +1,20 @@
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const buttonsDiv = document.getElementById("buttons");
-const countdownEl = document.getElementById("countdown");
-const timerEl = document.getElementById("timer");
+const videoContainer = document.getElementById("videoContainer");
 
-/* 🎵 SONIDO ROMÁNTICO */
-function playSound() {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-
-    osc.type = "sine";
-    osc.frequency.value = 880;
-    gain.gain.value = 0.2;
-
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-
-    osc.start();
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1);
-    osc.stop(ctx.currentTime + 1);
-}
-
-/* 🎉 BOTÓN SÍ */
+/* BOTÓN SÍ — MUESTRA EL VIDEO */
 yesBtn.addEventListener("click", () => {
     buttonsDiv.style.display = "none";
-    countdownEl.style.display = "block";
-    startCountdown();
-    playSound();
-
-    confetti({
-        particleCount: 200,
-        spread: 90,
-        origin: { y: 0.6 }
-    });
+    videoContainer.style.display = "block";
 });
 
-/* 😢 BOTÓN NO */
+/* BOTÓN NO — CAMBIA TEXTO Y HUE */
 let noSpeed = 1;
 let noActivated = false;
 
-noBtn.addEventListener("touchstart", moveNo);
 noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
 
 function moveNo() {
     if (!noActivated) {
@@ -57,44 +30,23 @@ function moveNo() {
     noBtn.style.top = `${y}px`;
 
     noSpeed += 0.7;
-    noBtn.style.transition = `${0.25 / noSpeed}s`;
+    noBtn.style.transition = `${0.2 / noSpeed}s`;
 }
 
-/* ⏳ CUENTA ATRÁS */
-function startCountdown() {
-    const target = new Date("February 14, 2026 00:00:00").getTime();
-
-    setInterval(() => {
-        const diff = target - Date.now();
-
-        if (diff <= 0) {
-            timerEl.textContent = "¡Ya es 14 de febrero! 💘";
-            return;
-        }
-
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const m = Math.floor((diff / (1000 * 60)) % 60);
-        const s = Math.floor((diff / 1000) % 60);
-
-        timerEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
-    }, 1000);
-}
-
-/* ❤️ GENERADOR DE CORAZONES (TODO EL ANCHO) */
+/* 👇 CORAZONES ANIMADOS */
 const heartsContainer = document.querySelector(".hearts");
-const heartEmojis = ["💖", "💕", "💘", "💗", "💓"];
+const heartEmojis = ["💖","💕","💘","💗","💓"];
 
 function createHeart() {
     const heart = document.createElement("span");
     heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = 8 + Math.random() * 10 + "s";
-    heart.style.fontSize = 1.2 + Math.random() * 1.5 + "rem";
+    heart.style.left = (Math.random() * 100) + "vw";
+    heart.style.animationDuration = (6 + Math.random() * 8) + "s";
+    heart.style.fontSize = (1.2 + Math.random() * 1.5) + "rem";
 
     heartsContainer.appendChild(heart);
 
-    setTimeout(() => heart.remove(), 20000);
+    setTimeout(() => heart.remove(), 18000);
 }
 
-setInterval(createHeart, 350);
+setInterval(createHeart, 300);
