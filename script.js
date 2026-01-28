@@ -7,15 +7,7 @@ let player;
 
 /* YouTube API */
 function onYouTubeIframeAPIReady() {
-    player = new YT.Player("player", {
-        videoId: "cahV83nd7_I",
-        playerVars: {
-            autoplay: 1,
-            mute: 1,
-            controls: 1,
-            rel: 0
-        }
-    });
+    // No hacemos nada aquí, el player se creará al hacer clic en "Sí"
 }
 
 /* BOTÓN SÍ */
@@ -23,14 +15,24 @@ yesBtn.addEventListener("click", () => {
     buttonsDiv.style.display = "none";
     videoContainer.style.display = "flex";
 
-    // Reproducir y quitar mute casi inmediato
-    setTimeout(() => {
-        if (player) {
-            player.playVideo();
-            setTimeout(() => player.unMute(), 100);
+    // Crear el player de YouTube ahora
+    player = new YT.Player("player", {
+        videoId: "cahV83nd7_I",
+        playerVars: {
+            autoplay: 1,
+            controls: 1,
+            rel: 0
+        },
+        events: {
+            'onReady': onPlayerReady
         }
-    }, 200);
+    });
 });
+
+function onPlayerReady(event) {
+    // Reproducir el video cuando esté listo
+    event.target.playVideo();
+}
 
 /* BOTÓN NO — HUYE SIN TAPAR EL SÍ */
 let noSpeed = 1;
