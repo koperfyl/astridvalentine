@@ -1,105 +1,61 @@
-* {
-    box-sizing: border-box;
-}
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const countdownEl = document.getElementById("countdown");
+const timerEl = document.getElementById("timer");
+const buttonsDiv = document.getElementById("buttons");
 
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #ffd6e0, #ffe6e6);
-    overflow: hidden;
-}
+// BOTÓN SÍ
+yesBtn.addEventListener("click", () => {
+    buttonsDiv.style.display = "none";
+    countdownEl.style.display = "block";
+    startCountdown();
 
-.container {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 20px;
-}
+    confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+});
 
-.hero {
-    max-width: 300px;
-    width: 90%;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    margin-bottom: 20px;
-    animation: fadeInUp 1.5s ease;
-}
+// BOTÓN NO (huye y se pone triste)
+let noSpeed = 1;
+let noActivated = false;
 
-h1 {
-    color: #b30000;
-    margin-bottom: 20px;
-}
-
-button {
-    padding: 15px 30px;
-    margin: 15px;
-    font-size: 20px;
-    border-radius: 12px;
-    cursor: pointer;
-    border: none;
-    transition: 0.3s ease;
-}
-
-#yesBtn {
-    background: #ff4d4d;
-    color: white;
-}
-
-#noBtn {
-    background: #cccccc;
-    color: #333;
-    position: relative;
-}
-
-#countdown {
-    display: none;
-    margin-top: 30px;
-}
-
-#timer {
-    font-size: 2rem;
-    color: #b30000;
-    font-weight: bold;
-}
-
-/* Animación imagen */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
+noBtn.addEventListener("mouseover", () => {
+    if (!noActivated) {
+        noBtn.textContent = "Jo... 😢";
+        noActivated = true;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
-/* Corazones animados */
-.hearts::before,
-.hearts::after {
-    content: "💖 💕 💘 💗 💓";
-    position: fixed;
-    top: -10%;
-    left: 0;
-    width: 100%;
-    font-size: 2rem;
-    animation: hearts 15s linear infinite;
-    opacity: 0.4;
-    z-index: 1;
-}
+    const x = Math.random() * (window.innerWidth - noBtn.clientWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.clientHeight);
 
-.hearts::after {
-    animation-delay: 7s;
-}
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
 
-@keyframes hearts {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(120vh);
-    }
+    noSpeed += 0.6;
+    noBtn.style.transition = `${0.25 / noSpeed}s`;
+});
+
+// CUENTA ATRÁS
+function startCountdown() {
+    const valentineDate = new Date("February 14, 2026 00:00:00").getTime();
+
+    setInterval(() => {
+        const now = new Date().getTime();
+        const distance = valentineDate - now;
+
+        if (distance <= 0) {
+            timerEl.innerHTML = "¡Ya es 14 de febrero! 💘";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        timerEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
 }
