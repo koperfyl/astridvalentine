@@ -1,41 +1,105 @@
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const countdownEl = document.getElementById("countdown");
-const timerEl = document.getElementById("timer");
-const buttonsDiv = document.getElementById("buttons");
+* {
+    box-sizing: border-box;
+}
 
-yesBtn.addEventListener("click", () => {
-    buttonsDiv.style.display = "none";
-    countdownEl.style.display = "block";
-    startCountdown();
-});
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffd6e0, #ffe6e6);
+    overflow: hidden;
+}
 
-noBtn.addEventListener("mouseover", () => {
-    const x = Math.random() * (window.innerWidth - noBtn.clientWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.clientHeight);
-    noBtn.style.position = "absolute";
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-});
+.container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 20px;
+}
 
-function startCountdown() {
-    const valentineDate = new Date("February 14, 2026 00:00:00").getTime();
+.hero {
+    max-width: 300px;
+    width: 90%;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    animation: fadeInUp 1.5s ease;
+}
 
-    const interval = setInterval(() => {
-        const now = new Date().getTime();
-        const distance = valentineDate - now;
+h1 {
+    color: #b30000;
+    margin-bottom: 20px;
+}
 
-        if (distance <= 0) {
-            timerEl.innerHTML = "¡Ya es 14 de febrero! 💘";
-            clearInterval(interval);
-            return;
-        }
+button {
+    padding: 15px 30px;
+    margin: 15px;
+    font-size: 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s ease;
+}
 
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+#yesBtn {
+    background: #ff4d4d;
+    color: white;
+}
 
-        timerEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }, 1000);
+#noBtn {
+    background: #cccccc;
+    color: #333;
+    position: relative;
+}
+
+#countdown {
+    display: none;
+    margin-top: 30px;
+}
+
+#timer {
+    font-size: 2rem;
+    color: #b30000;
+    font-weight: bold;
+}
+
+/* Animación imagen */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Corazones animados */
+.hearts::before,
+.hearts::after {
+    content: "💖 💕 💘 💗 💓";
+    position: fixed;
+    top: -10%;
+    left: 0;
+    width: 100%;
+    font-size: 2rem;
+    animation: hearts 15s linear infinite;
+    opacity: 0.4;
+    z-index: 1;
+}
+
+.hearts::after {
+    animation-delay: 7s;
+}
+
+@keyframes hearts {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(120vh);
+    }
 }
